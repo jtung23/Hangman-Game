@@ -1,17 +1,82 @@
 var wins = 0;
-var wordArray = ['brisket'];
+var wordArray = ['b'];
 var randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];
 var word = document.getElementById("word");
-
 // Guess variables
 var totalGuesses = 15;
 var guessesRemaining = document.getElementById("guessesRemaining");
 var guess = document.getElementById("guess");
 
-// var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m",
-				// "n","o","p","q","r","s","t","u","v","w","x","y","z",];
 var brisket = ["b", "r", "i", "s", "k", "e", "t"];
-var userArray = [""];
+var userArray = [];
+
+
+console.log(brisket.indexOf(4)); // =4
+
+word.innerHTML = randomWord
+
+
+
+// 	if (guess = letters) {
+// 		show letters
+// 	} else {
+// 		show "_"
+// 	}
+// }
+for (var i = 0; i < brisket.length; i++) {
+	if (brisket[i] != userArray.includes(i)) {
+		word.innerHTML = "_"
+	} else {
+		word.innerHTML = "B"
+	}
+}
+
+// 
+document.onkeyup = function(event) {
+
+	var userGuess = event.key
+
+  	var userArray = [];
+  	var userPress;
+
+    event = event || window.event;
+
+    // Ensure we only handle printable keys
+    var charCode = typeof event.which == "number" ? event.which : event.keyCode;
+
+    if (charCode) {
+        userArray.push(String.fromCharCode(charCode));
+    }
+
+	userArray.push(String.fromCharCode(userPress));
+	
+  	
+
+
+	if (brisket.includes(userGuess)) {
+
+		console.log(userGuess)
+
+		} else {
+		var newGuess = document.createElement('span');
+		newGuess.innerHTML = userGuess;
+		guess.appendChild(newGuess);
+		totalGuesses--;
+		guessesRemaining.innerHTML = totalGuesses;
+		}
+
+	userArray.splice(0, 0, userPress);
+
+	console.log(userArray.join());
+	}
+
+			// else {
+		// 	var guessesRemaining = 15;
+
+		// }
+
+	// change guesses remaining to 15 and pull a new word from array
+
 
 // track userGuess (compare guesses var with alphabet variables with includes.)
 // document.onkeyup = function alphaOnly(event) {
@@ -23,46 +88,21 @@ var userArray = [""];
 // };
 
 // Guess counter
-console.log(brisket.indexOf("k")) // =4
-word.innerHTML = randomWord
 
-for (randomWord) {
-	if (guess = letters) {
-		show letters
-	} else {
-		show "_"
-	}
-}
+ //  var userArray = [];
+ //  var userPress;
 
+ //  if (typeof event !== 'undefined') {
+ //    keyPress = event.keyCode;
+ //  }
+ //  else if (e) {
+ //    keyPress = e.which;
+ //  }
 
-// 
-document.onkeyup = function(event) {
+	// userArray.push(String.fromCharCode(keyPress));
 
-	var userGuess = event.key
-
-
-	// var userGuess = event.keyCode;
- //  	return (( userGuess >= 65 && userGuess <= 90));
-
-
-	if (brisket.includes(userGuess)) {
-		console.log(userGuess)
-
-	} else {
-
-		var newGuess = document.createElement('span');
-		newGuess.innerHTML = userGuess;
-		guess.appendChild(newGuess);
-		totalGuesses--;
-		guessesRemaining.innerHTML = totalGuesses;
-	}
-}
-
-	
-
-	// change guesses remaining to 15 and pull a new word from array
-
-
+ //  	return false;   // Prevents the default action
+ //  	console.log(userArray);
 
 // mathfloor[math.random] picking from array.
 // using typeof ***
@@ -85,3 +125,14 @@ document.onkeyup = function(event) {
 // Word pulled from array
 // Guesses resets to 15
 // Letters guessed is blank
+
+// filtering and returning a value from array
+// var ages = [32, 33, 16, 40];
+
+// function checkAdult(age) {
+//     return age >= 18;
+// }
+
+// function myFunction() {
+//     document.getElementById("demo").innerHTML = ages.filter(checkAdult);
+// }
