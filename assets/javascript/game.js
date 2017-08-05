@@ -1,5 +1,6 @@
 // Questions: Why put some functions on outside of onkey and some inside.
 // call bakc functions html box
+var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "x", "y", "z"]
 var wins = 0;
 var word = document.getElementById("word");
 // Guess variables
@@ -8,34 +9,32 @@ var guessesRemaining = document.getElementById("guessesRemaining");
 var guess = document.getElementById("guess");
 var underscore = "_ "
 var meat = ["brisket", "pork"]
+
+//////////////////////////////////////////////////
 var chosenMeat = meat[Math.floor(Math.random() * meat.length)]
+var newWord = "";
 var lettersInChosenMeatArray = chosenMeat.split("")
 console.log(lettersInChosenMeatArray)
 var numberOfUnderscores = lettersInChosenMeatArray.length
+///////////////////////////////////////////////////
+
 var chosenMeatArrayLetters = lettersInChosenMeatArray.join('')
 
 var randomWord = meat[Math.floor(Math.random() * meat.length)];
-var userGuessArray = ["p", "b"];
+var userGuessArray = [];
+var userCorrectGuess = [];
 
 // //////////////////////////////////////////////
 
 function pullWord () {
-	console.log(chosenMeatArrayLetters)
-	for (var i = 0; i < lettersInChosenMeatArray.length; i++) {
-		if (userGuessArray.includes(lettersInChosenMeatArray[i])) {
-			// alert("yes")
-			word.innerHTML = chosenMeatArrayLetters
-		} else {
-			// alert("no")
-			word.innerHTML = underscore.repeat(lettersInChosenMeatArray.length)
-			
-		}
+
+
+	for (var i = 0; i < numberOfUnderscores; i++) {
+		userCorrectGuess.push('_');
+		document.getElementById('word').innerHTML = userCorrectGuess;
+	}
+	guessesRemaining.innerHTML = totalGuesses
 }
-}
-	// }
-	// if (chosenMeatArrayLetters) {
-	// 	word.innerHTML = underscore.repeat(numberOfUnderscores)
-	// }
 
 function updateScore() {
 	document.querySelector("#wins").innerHTML = "Wins: " + wins;
@@ -47,6 +46,7 @@ function reset() {
 	pullWord();
 }
 
+
 // ////////////////////////////////////////////////
 
 
@@ -57,7 +57,6 @@ function reset() {
 	// }
 
 // //////////////////////////////////////////////////////
-
 pullWord();
 updateScore();
 
@@ -65,36 +64,62 @@ updateScore();
 
 document.onkeyup = function(event) 	{
 
+	
 	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 
-	function newUserArray() {
-	userGuessArray.push(userGuess);
-	return userGuessArray;
+	function newUserArray() {	
+		userGuessArray.push(userGuess);
+		return userGuessArray;
 	}
 
-		if (lettersInChosenMeatArray.includes(userGuess)) {
+	newUserArray();
 
-			newUserArray();
-			console.log(userGuess);
-			console.log(userGuessArray)
-			for (var i = 0; i < userGuessArray.length; i++) {
-				if (userGuessArray[i]) {
-				}
-			}
-		} 
-		else {
-		newUserArray();
-		var newGuess = document.createElement('span');
-		newGuess.innerHTML = userGuess;
-		guess.appendChild(newGuess);
-		totalGuesses--;
-		guessesRemaining.innerHTML = totalGuesses;
-		} 
-		if (totalGuesses < 2) {
-		reset()
+	for (var i = 0; i < alphabet.length; i++) {
+		if (userGuess === alphabet[i]) {
+			compareletters(userGuess)
+		document.getElementById("word").innerHTML = userCorrectGuess.join(' ');	
 		}
+	}
+
+	// 	if (lettersInChosenMeatArray.includes(userGuess)) {
+	// 		console.log(userGuess);
+	// 	} 
+	// 	else {
+	// 	newUserArray();
+	// 	var newGuess = document.createElement('span');
+	// 	newGuess.innerHTML = userGuess;
+	// 	guess.appendChild(newGuess);
+		
+	// 	guessesRemaining.innerHTML = totalGuesses;
+	// 	} 
+
+	// for (var i = 0; i < lettersInChosenMeatArray.length; i++) {
+	// 	var allGuessesFound = true;
+	// 	if (lettersInChosenMeatArray[i] === "") {
+	// 		allGuessesFound = false;
+	// 	}
+	// }
+
 }
 
+
+function compareletters(userLetter) {
+	if (chosenMeat.indexOf(userLetter) > -1) {
+
+		for(var i = 0; i < numberOfUnderscores; i++) {
+
+			if(lettersInChosenMeatArray[i] === userLetter) {
+
+				userCorrectGuess[i] = userLetter;
+				document.getElementById('word').innerHTML = userCorrectGuess.join(' ');
+				console.log(userCorrectGuess)
+			}
+		}
+	}
+	else {
+		totalGuesses--;
+	}
+}
 		// if (userGuess === "b") {
 		// 	word.innerHTML = "b"
 		// 	console.log(meat.brisket.charAt(meat.brisket[1][0]))
